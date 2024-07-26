@@ -136,3 +136,219 @@ variable "mq_broker_encryption_options_use_aws_owned_key" {
   type        = bool
   default     = true
 }
+
+variable "mq_broker_ldap_server_metadata_hosts" {
+  description = "List of a fully qualified domain name of the LDAP server and an optional failover server.(Currently, AWS may not process changes to LDAP server metadata.)"
+  type        = list(string)
+  default     = null
+  validation {
+    condition     = (var.mq_broker_engine_type != "RabbitMQ" && var.mq_broker_ldap_server_metadata_hosts != null) || var.mq_broker_ldap_server_metadata_hosts == null
+    error_message = "Not supported for engine_type RabbitMQ."
+  }
+}
+
+variable "mq_broker_ldap_server_metadata_role_base" {
+  description = "Fully qualified name of the directory to search for a user's groups.(Currently, AWS may not process changes to LDAP server metadata.)"
+  type        = string
+  default     = null
+  validation {
+    condition     = (var.mq_broker_engine_type != "RabbitMQ" && var.mq_broker_ldap_server_metadata_role_base != null) || var.mq_broker_ldap_server_metadata_role_base == null
+    error_message = "Not supported for engine_type RabbitMQ."
+  }
+}
+
+variable "mq_broker_ldap_server_metadata_role_name" {
+  description = "Specifies the LDAP attribute that identifies the group name attribute in the object returned from the group membership query.(Currently, AWS may not process changes to LDAP server metadata.)"
+  type        = string
+  default     = null
+  validation {
+    condition     = (var.mq_broker_engine_type != "RabbitMQ" && var.mq_broker_ldap_server_metadata_role_name != null) || var.mq_broker_ldap_server_metadata_role_name == null
+    error_message = "Not supported for engine_type RabbitMQ."
+  }
+}
+
+variable "mq_broker_ldap_server_metadata_role_search_matching" {
+  description = "Search criteria for groups.(Currently, AWS may not process changes to LDAP server metadata.)"
+  type        = string
+  default     = null
+  validation {
+    condition     = (var.mq_broker_engine_type != "RabbitMQ" && var.mq_broker_ldap_server_metadata_role_search_matching != null) || var.mq_broker_ldap_server_metadata_role_search_matching == null
+    error_message = "Not supported for engine_type RabbitMQ."
+  }
+}
+
+variable "mq_broker_ldap_server_metadata_role_search_subtree" {
+  description = "Whether the directory search scope is the entire sub-tree.(Currently, AWS may not process changes to LDAP server metadata.)"
+  type        = bool
+  default     = false
+  validation {
+    condition     = (var.mq_broker_engine_type != "RabbitMQ" && var.mq_broker_ldap_server_metadata_role_search_subtree != false) || var.mq_broker_ldap_server_metadata_role_search_subtree == false
+    error_message = "Not supported for engine_type RabbitMQ."
+  }
+}
+
+variable "mq_broker_ldap_server_metadata_service_account_password" {
+  description = "Service account password.(Currently, AWS may not process changes to LDAP server metadata.)"
+  type        = string
+  default     = null
+  validation {
+    condition     = (var.mq_broker_engine_type != "RabbitMQ" && var.mq_broker_ldap_server_metadata_service_account_password != null) || var.mq_broker_ldap_server_metadata_service_account_password == null
+    error_message = "Not supported for engine_type RabbitMQ."
+  }
+}
+
+variable "mq_broker_ldap_server_metadata_service_account_username" {
+  description = "Service account username.(Currently, AWS may not process changes to LDAP server metadata.)"
+  type        = string
+  default     = null
+  validation {
+    condition     = (var.mq_broker_engine_type != "RabbitMQ" && var.mq_broker_ldap_server_metadata_service_account_username != null) || var.mq_broker_ldap_server_metadata_service_account_username == null
+    error_message = "Not supported for engine_type RabbitMQ."
+  }
+}
+
+variable "mq_broker_ldap_server_metadata_user_base" {
+  description = "Fully qualified name of the directory where you want to search for users.(Currently, AWS may not process changes to LDAP server metadata.)"
+  type        = string
+  default     = null
+  validation {
+    condition     = (var.mq_broker_engine_type != "RabbitMQ" && var.mq_broker_ldap_server_metadata_user_base != null) || var.mq_broker_ldap_server_metadata_user_base == null
+    error_message = "Not supported for engine_type RabbitMQ."
+  }
+}
+
+variable "mq_broker_ldap_server_metadata_user_role_name" {
+  description = "Specifies the name of the LDAP attribute for the user group membership.(Currently, AWS may not process changes to LDAP server metadata.)"
+  type        = string
+  default     = null
+  validation {
+    condition     = (var.mq_broker_engine_type != "RabbitMQ" && var.mq_broker_ldap_server_metadata_user_role_name != null) || var.mq_broker_ldap_server_metadata_user_role_name == null
+    error_message = "Not supported for engine_type RabbitMQ."
+  }
+}
+
+variable "mq_broker_ldap_server_metadata_user_search_matching" {
+  description = "Search criteria for users.(Currently, AWS may not process changes to LDAP server metadata.)"
+  type        = string
+  default     = null
+  validation {
+    condition     = (var.mq_broker_engine_type != "RabbitMQ" && var.mq_broker_ldap_server_metadata_user_search_matching != null) || var.mq_broker_ldap_server_metadata_user_search_matching == null
+    error_message = "Not supported for engine_type RabbitMQ."
+  }
+}
+
+
+variable "mq_broker_ldap_server_metadata_user_search_subtree" {
+  description = "Whether the directory search scope is the entire sub-tree.(Currently, AWS may not process changes to LDAP server metadata.)"
+  type        = bool
+  default     = false
+  validation {
+    condition     = (var.mq_broker_engine_type != "RabbitMQ" && var.mq_broker_ldap_server_metadata_user_search_subtree != false) || var.mq_broker_ldap_server_metadata_user_search_subtree == false
+    error_message = "Not supported for engine_type RabbitMQ."
+  }
+}
+
+variable "mq_broker_logs_audit" {
+  description = "Enables audit logging. User management action made using JMX or the ActiveMQ Web Console is logged."
+  type        = string
+  default     = "false"
+  validation {
+    condition     = (var.mq_broker_engine_type != "ActiveMQ" && var.mq_broker_logs_audit != "false") || var.mq_broker_logs_audit == "false"
+    error_message = "Auditing is only possible for engine_type of ActiveMQ."
+  }
+}
+
+variable "mq_broker_logs_general" {
+  description = "Enables general logging via CloudWatch."
+  type        = bool
+  default     = false
+  validation {
+    condition     = (var.mq_broker_engine_type != "ActiveMQ" && var.mq_broker_logs_general != false) || var.mq_broker_logs_general == false
+    error_message = "Auditing is only possible for engine_type of ActiveMQ."
+  }
+}
+
+variable "mq_broker_maintenance_window_start_time_day_of_week" {
+  description = "Day of the week."
+  type        = string
+  default     = null
+  validation {
+    condition = can(
+      regex(
+        "^MONDAY|TUESDAY|WEDNESDAY|THURSDAY|FRIDAY|SATURDAY|SUNDAY$",
+        var.mq_broker_maintenance_window_start_time_day_of_week
+      )
+    ) || var.mq_broker_maintenance_window_start_time_day_of_week == null
+    error_message = "Only days of the week are allowed e.g., MONDAY, TUESDAY, or WEDNESDAY."
+  }
+}
+
+variable "mq_broker_maintenance_window_start_time_time_of_day" {
+  description = "Time, in 24-hour format."
+  type        = string
+  default     = null
+  validation {
+    condition = can(
+      regex(
+        "^(?:[01]\\d|2[0-3]):[0-5]\\d$",
+        var.mq_broker_maintenance_window_start_time_time_of_day
+      )
+    ) || var.mq_broker_maintenance_window_start_time_time_of_day == null
+    error_message = "The time must be in 24-hour format e.g., 02:00."
+  }
+}
+
+variable "mq_broker_maintenance_window_start_time_time_zone" {
+  description = "Time zone in either the Country/City format or the UTC offset format, e.g., CET."
+  type        = string
+  default     = null
+}
+
+variable "mq_broker_publicly_accessible" {
+  description = "Whether to enable connections from applications outside of the VPC that hosts the broker's subnets."
+  type        = bool
+  default     = false
+}
+
+variable "mq_broker_security_groups" {
+  description = "List of security group IDs assigned to the broker."
+  type        = list(string)
+  default     = null
+}
+
+variable "mq_broker_storage_type" {
+  description = " Storage type of the broker."
+  type        = string
+  default     = null
+  validation {
+    condition = (
+      can(
+        regex(
+          "^efs|ebs$",
+          var.mq_broker_storage_type
+        )
+      ) && var.mq_broker_engine_type == "ActiveMQ"
+    ) || (var.mq_broker_storage_type == "ebs" && var.mq_broker_engine_type == "RabbitMQ") || (var.mq_broker_storage_type == null)
+    error_message = "For engine_type ActiveMQ, the valid values are efs and ebs, and the AWS-default is efs. For engine_type RabbitMQ, only ebs is supported. When using ebs, only the mq.m5 broker instance type family is supported."
+  }
+}
+
+variable "mq_broker_subnet_ids" {
+  description = "List of subnet IDs in which to launch the broker."
+  type        = set(string)
+  default     = null
+  validation {
+    condition = (
+      var.mq_broker_subnet_ids != null && can(length(var.mq_broker_subnet_ids) == 1) && var.mq_broker_deployment_mode == "SINGLE_INSTANCE") || (
+      var.mq_broker_subnet_ids != null && can(length(var.mq_broker_subnet_ids) > 1) && can(regex("^ACTIVE_STANDBY_MULTI_AZ|CLUSTER_MULTI_AZ$", var.mq_broker_deployment_mode))) || (
+      var.mq_broker_subnet_ids == null
+    )
+    error_message = "A SINGLE_INSTANCE deployment requires one subnet. An ACTIVE_STANDBY_MULTI_AZ deployment requires multiple subnets."
+  }
+}
+
+variable "mq_broker_tags" {
+  description = "Tags provided for the broker"
+  type        = map(string)
+  default     = {}
+}
